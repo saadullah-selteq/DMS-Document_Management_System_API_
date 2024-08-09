@@ -1,11 +1,8 @@
-# documents/views.py
-
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import Business, SubBusiness, Folder, File
 from .serializers import BusinessSerializer, SubBusinessSerializer, FolderSerializer, FileSerializer
-
 
 
 class BusinessViewSet(viewsets.ModelViewSet):
@@ -35,7 +32,6 @@ class FolderViewSet(viewsets.ModelViewSet):
         parent_folder = Folder.objects.get(id=parent_folder_id) if parent_folder_id else None
 
         new_folder = Folder.objects.create(name=name, business=business, parent_folder=parent_folder)
-
         serializer = self.get_serializer(new_folder)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -52,7 +48,6 @@ class FolderViewSet(viewsets.ModelViewSet):
         parent_folder = Folder.objects.get(id=parent_folder_id) if parent_folder_id else None
 
         new_folder = Folder.objects.create(name=name, sub_business=sub_business, parent_folder=parent_folder)
-
         serializer = self.get_serializer(new_folder)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -77,8 +72,6 @@ class FileViewSet(viewsets.ModelViewSet):
 
         folder = Folder.objects.get(id=folder_id)
         new_file = File.objects.create(name=file.name, folder=folder, file=file)
-
         serializer = self.get_serializer(new_file)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
+#serializers,
