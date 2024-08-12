@@ -66,12 +66,9 @@ class FileViewSet(viewsets.ModelViewSet):
     def upload_file(self, request):
         folder_id = request.data.get('folder_id')
         file = request.FILES.get('file')
-
         if not folder_id or not file:
             return Response({'error': 'Folder ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
-
         folder = Folder.objects.get(id=folder_id)
         new_file = File.objects.create(name=file.name, folder=folder, file=file)
         serializer = self.get_serializer(new_file)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#serializers,
